@@ -27,8 +27,10 @@ package com.example.eshopee;
 
 import java.util.List;
 
+import com.example.eshopee.config.AppConstants;
+import com.example.eshopee.entites.Role;
+import com.example.eshopee.repositories.RoleRepo;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -43,11 +45,14 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 @SecurityScheme(name = "E-Commerce Application", scheme = "bearer", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
 public class EShopeeApplication implements CommandLineRunner {
 
-    @Autowired
-    private RoleRepo roleRepo;
+    private final RoleRepo roleRepo;
+
+    EShopeeApplication(RoleRepo roleRepo) {
+        this.roleRepo = roleRepo;
+    }
 
     public static void main(String[] args) {
-        SpringApplication.run(com.example.eshopee.app.ECommerceApplication.class, args);
+        SpringApplication.run(EShopeeApplication.class, args);
     }
 
     @Bean
